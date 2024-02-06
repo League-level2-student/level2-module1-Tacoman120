@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -23,6 +24,8 @@ public class GuestBook implements ActionListener {
 	JPanel panel = new JPanel();
 	JButton add = new JButton();
 	JButton view = new JButton();
+	JButton back = new JButton();
+	JLabel label = new JLabel();
 	ArrayList<String> list = new ArrayList<String>();
 	
 	void run() {
@@ -33,14 +36,16 @@ public class GuestBook implements ActionListener {
 		frame.add(panel);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setName("Guest Book");
+		frame.setTitle("Guest Book");
 		panel.add(add);
 		add.setText("Add Name");
 		panel.add(view);
 		view.setText("View Names");
 		frame.pack();
+		back.setText("<<<");
 		add.addActionListener(this);
 		view.addActionListener(this);
+		back.addActionListener(this);
 	}
 
 
@@ -50,9 +55,20 @@ public class GuestBook implements ActionListener {
 		if(e.getSource() == add) {
 			String addition = JOptionPane.showInputDialog(null, "Enter a name (first and last)");
 			list.add(addition);
+			
 		}
 		if(e.getSource() == view) {
-			
+			panel.removeAll();
+			panel.add(back);
+			panel.add(label);
+			label.setText(list.toString());
+			frame.pack();
+		}
+		if(e.getSource() == back) {
+			panel.removeAll();
+			panel.add(add);
+			panel.add(view);
+			frame.pack();
 		}
 	}
 	
